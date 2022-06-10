@@ -19,10 +19,10 @@ from tensorflow.keras import backend as K
 from scipy.stats import rankdata
 
 
-config = tf.ConfigProto(allow_soft_placement=True)
+"""config = tf.ConfigProto(allow_soft_placement=True)
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
-K.set_session(session)
+K.set_session(session)"""
 
 logging.basicConfig(level=logging.INFO)
 
@@ -356,7 +356,7 @@ class ELModel(tf.keras.Model):
 class MyModelCheckpoint(ModelCheckpoint):
 
     def __init__(self, *args, **kwargs):
-        super(ModelCheckpoint, self).__init__()
+        super().__init__('')
         self.out_classes_file = kwargs.pop('out_classes_file')
         self.out_relations_file = kwargs.pop('out_relations_file')
         self.monitor = kwargs.pop('monitor')
@@ -366,6 +366,7 @@ class MyModelCheckpoint(ModelCheckpoint):
         self.proteins = kwargs.pop('proteins')
         self.prot_index = list(self.proteins.values())
         self.prot_dict = {v: k for k, v in enumerate(self.prot_index)}
+        self.save_freq = kwargs.pop('save_freq')
     
         self.best_rank = 100000
         
