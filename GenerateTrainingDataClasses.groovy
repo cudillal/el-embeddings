@@ -23,11 +23,14 @@ import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.search.*
 import org.semanticweb.owlapi.formats.*
 
+import groovy.cli.commons.CliBuilder
+
 
 def cli = new CliBuilder()
 cli.with {
 usage: 'Self'
   h longOpt:'help', 'this information'
+  on longOpt:'ontology', 'the ontology file', args:1, required:true
   i longOpt:'input', 'input STRING file', args:1, required:true
   a longOpt:'annot', 'input annotations file', args:1, required:true
   o longOpt:'output', 'output file containing generated ontology',args:1, required:true
@@ -44,9 +47,8 @@ if( opt.h ) {
 
 OWLOntologyManager outputManager = OWLManager.createOWLOntologyManager()
 OWLOntologyManager manager = OWLManager.createOWLOntologyManager()
-OWLOntology ont = manager.loadOntologyFromOntologyDocument(new File("data/go.owl"))
+OWLOntology ont = manager.loadOntologyFromOntologyDocument(new File(opt.on))
 OWLDataFactory fac = manager.getOWLDataFactory()
-
 
 
 def idset = new LinkedHashSet()
